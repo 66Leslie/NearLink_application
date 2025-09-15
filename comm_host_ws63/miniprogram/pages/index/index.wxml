@@ -1,0 +1,106 @@
+<view class="container">
+  <!-- Logo和标题区域 -->
+  <view class="logo-section">
+    <view class="logo-container">
+      <image class="logo-image" src="/assets/icons/logo.svg" mode="aspectFit"></image>
+    </view>
+    <view class="title">智慧物流系统</view>
+    <view class="subtitle">云端控制终端</view>
+  </view>
+
+  <!-- 连接表单区域 -->
+  <view class="form-section">
+    <view class="input-group">
+      <text class="input-label">设备 IP 地址</text>
+      <input
+        class="input-field"
+        value="{{ ipAddress }}"
+        bindinput="onIpInput"
+        placeholder="请输入IP地址"
+        placeholder-style="color:#4A5568;"
+        disabled="{{connecting || connected}}"
+      />
+    </view>
+
+    <view class="input-group">
+      <text class="input-label">端口号</text>
+      <input
+        class="input-field"
+        value="{{ port }}"
+        type="number"
+        bindinput="onPortInput"
+        placeholder="请输入端口号"
+        placeholder-style="color:#4A5568;"
+        disabled="{{connecting || connected}}"
+      />
+    </view>
+  </view>
+
+  <!-- 操作按钮区域 -->
+  <view class="action-section">
+    <button
+      class="main-button {{connected ? 'connected' : ''}}"
+      bindtap="onConnectTap"
+      loading="{{connecting}}"
+      disabled="{{connecting}}"
+    >
+      <text class="button-text">{{connected ? '已连接' : (connecting ? '连接中...' : '连接设备')}}</text>
+      <view class="button-glow" wx:if="{{connected}}"></view>
+    </button>
+
+    <!-- 直接进入按钮 -->
+    <button
+      class="direct-enter-button"
+      bindtap="onDirectEnter"
+      disabled="{{connecting}}"
+    >
+      <text class="button-text">直接进入体验</text>
+    </button>
+
+    <!-- 功能说明 -->
+    <view class="function-tips">
+      <view class="tip-item">
+        <text class="tip-icon">🔗</text>
+        <text class="tip-text">连接设备：完整功能体验</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-icon">👀</text>
+        <text class="tip-text">直接体验：演示模式浏览</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 状态提示区域 -->
+  <view class="status-section">
+    <block wx:if="{{connected}}">
+      <view class="status-indicator success">
+        <text class="status-icon">✓</text>
+        <text class="status-text">连接成功，正在跳转...</text>
+      </view>
+    </block>
+    <block wx:elif="{{connecting}}">
+      <view class="status-indicator connecting">
+        <view class="loading-dots">
+          <view class="dot"></view>
+          <view class="dot"></view>
+          <view class="dot"></view>
+        </view>
+        <text class="status-text">正在建立连接...</text>
+      </view>
+    </block>
+  </view>
+
+</view>
+
+<!-- 新的通信日志区域 -->
+<view class="log-entry-bar" bindtap="toggleLogPanel" wx:if="{{log.length > 0}}">
+  <text>通信日志</text>
+  <image class="chevron-icon {{logPanelVisible ? 'expanded' : ''}}" src="/assets/icons/chevron-up.svg" mode="aspectFit"></image>
+</view>
+
+<view class="log-panel {{logPanelVisible ? 'visible' : ''}}">
+  <scroll-view class="log-scroll" scroll-y="true">
+    <view wx:for="{{log}}" wx:key="*this" class="log-item">{{item}}</view>
+    <view wx:if="{{log.length === 0}}" class="log-empty">暂无日志</view>
+  </scroll-view>
+</view>

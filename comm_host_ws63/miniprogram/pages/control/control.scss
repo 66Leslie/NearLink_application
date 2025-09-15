@@ -1,0 +1,970 @@
+/* pages/control/control.scss */
+
+/* 体验模式提示条 */
+.demo-mode-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80rpx;
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40rpx;
+  z-index: 100;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+
+  .demo-icon {
+    font-size: 32rpx;
+  }
+
+  .demo-text {
+    flex: 1;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 28rpx;
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .demo-action {
+    color: #FFFFFF;
+    font-size: 26rpx;
+    font-weight: 500;
+    padding: 8rpx 16rpx;
+    border: 1rpx solid rgba(255, 255, 255, 0.5);
+    border-radius: 8rpx;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &:active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+.container {
+  padding: 0;
+  background: linear-gradient(135deg, #0A192F 0%, #1A365D 50%, #0A192F 100%);
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 成功弹窗 */
+.success-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .success-popup-content {
+    background: linear-gradient(135deg, #1A365D 0%, #2D3748 100%);
+    border: 1rpx solid #303C55;
+    border-radius: 16rpx;
+    padding: 40rpx;
+    width: 60%;
+    max-width: 400rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .success-icon {
+      margin-bottom: 30rpx;
+    }
+    
+    .success-text {
+      color: white;
+      font-size: 32rpx;
+      text-align: center;
+      line-height: 1.4;
+    }
+  }
+}
+
+/* 页面头部 */
+.page-header {
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1rpx solid #303C55;
+  padding: 40rpx 30rpx 30rpx;
+  margin-top: 80rpx; /* 为体验模式提示条留出空间 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.status-indicator {
+  padding: 12rpx 24rpx;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &.connected {
+    background: rgba(72, 187, 120, 0.2);
+    border: 1rpx solid #48BB78;
+    color: #48BB78;
+  }
+
+  &.disconnected {
+    background: rgba(255, 107, 107, 0.2);
+    border: 1rpx solid #FF6B6B;
+    color: #FF6B6B;
+  }
+}
+
+/* 主要内容区域 */
+.main-content {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 通用部分样式 */
+.section {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1rpx solid #303C55;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+
+  .section-title {
+    font-size: 32rpx;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 20rpx;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* 舵机控制样式 */
+.servo-control-section {
+  .servo-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20rpx;
+    
+    .servo-row {
+      display: flex;
+      align-items: center;
+      
+      .servo-label {
+        width: 160rpx;
+        font-size: 28rpx;
+        font-weight: 500;
+        color: #B8C5D1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .servo-buttons {
+        flex: 1;
+        display: flex;
+        margin-left: 20rpx;
+
+        .servo-btn {
+          flex: 1;
+          height: 80rpx;
+          line-height: 80rpx;
+          padding: 0;
+          font-size: 28rpx;
+          font-weight: 600;
+          border-radius: 12rpx;
+          border: none;
+          margin-right: 20rpx;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+
+          &:first-of-type {
+            background: linear-gradient(135deg, #48BB78 0%, #68D391 100%);
+            color: #FFFFFF;
+          }
+
+          &:last-of-type {
+            background: linear-gradient(135deg, #4A90E2 0%, #64FFDA 100%);
+            color: #0A192F;
+            margin-right: 0;
+          }
+
+          &:disabled {
+            background: #303C55;
+            color: #8892B0;
+          }
+
+          &:active {
+            transform: translateY(2rpx);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 舵机选择样式 */
+.servo-select-section {
+  .servo-select {
+    display: flex;
+    align-items: center;
+    gap: 20rpx;
+    
+    .select-label {
+      font-size: 28rpx;
+      color: #333;
+      width: 160rpx;
+    }
+    
+    .select-buttons {
+      flex: 1;
+      display: flex;
+      gap: 20rpx;
+      
+      .select-btn {
+        flex: 1;
+        height: 80rpx;
+        line-height: 80rpx;
+        padding: 0;
+        font-size: 28rpx;
+        background: #f5f5f5;
+        color: #333;
+        border-radius: 12rpx;
+        
+        &.active {
+          background: linear-gradient(45deg, #007AFF, #5ac8fa);
+          color: white;
+        }
+        
+        &:disabled {
+          background: #e0e0e0;
+          color: rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
+  }
+}
+
+/* 速度控制样式 */
+.speed-section {
+  .speed-buttons {
+    display: flex;
+    margin-left: -10rpx;
+    margin-right: -10rpx;
+
+    .speed-btn {
+      flex: 1;
+      height: 80rpx;
+      line-height: 80rpx;
+      padding: 0;
+      margin: 0 10rpx;
+      font-size: 28rpx;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1rpx solid #303C55;
+      color: #B8C5D1;
+      border-radius: 12rpx;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+
+      &.active {
+        background: linear-gradient(135deg, #4A90E2 0%, #64FFDA 100%);
+        border-color: #64FFDA;
+        color: #0A192F;
+      }
+
+      &:disabled {
+        background: #303C55;
+        border-color: #1A2332;
+        color: #8892B0;
+      }
+
+      &:active {
+        transform: translateY(2rpx);
+      }
+    }
+  }
+}
+
+/* 连接控制样式 */
+.connection-section {
+  .connection-buttons {
+    display: flex;
+    margin-left: -10rpx;
+    margin-right: -10rpx;
+
+    .connection-btn {
+      flex: 1;
+      height: 80rpx;
+      line-height: 80rpx;
+      padding: 0;
+      margin: 0 10rpx;
+      font-size: 28rpx;
+      font-weight: 600;
+      border-radius: 12rpx;
+      border: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+
+      &.connect {
+        background: linear-gradient(135deg, #48BB78 0%, #68D391 100%);
+        color: #FFFFFF;
+      }
+
+      &.disconnect {
+        background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+        color: #FFFFFF;
+      }
+
+      &:disabled {
+        background: #303C55;
+        color: #8892B0;
+      }
+
+      &:active {
+        transform: translateY(2rpx);
+      }
+    }
+  }
+}
+
+/* 第一行：状态信息 */
+.top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+
+.status-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1rpx solid #303C55;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+
+  .card-icon {
+    font-size: 48rpx;
+    width: 80rpx;
+    height: 80rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4A90E2 0%, #64FFDA 100%);
+    border-radius: 16rpx;
+    color: #0A192F;
+  }
+
+  .card-content {
+    flex: 1;
+  }
+
+  .card-title {
+    font-size: 24rpx;
+    color: #8892B0;
+    margin-bottom: 6rpx;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .card-value {
+    font-size: 34rpx;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 4rpx;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &.running {
+      color: #48BB78;
+    }
+
+    &.stopped {
+      color: #FF6B6B;
+    }
+  }
+
+  .card-detail {
+    font-size: 22rpx;
+    color: #B8C5D1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* 第二行：分拣统计 */
+.stats-row {
+  width: 100%;
+}
+
+.stats-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1rpx solid #303C55;
+  border-radius: 20rpx;
+  padding: 30rpx;
+}
+
+.stats-header {
+  display: flex;
+  align-items: center;
+  gap: 15rpx;
+  margin-bottom: 30rpx;
+
+  .stats-icon {
+    font-size: 32rpx;
+    color: #64FFDA;
+  }
+
+  .stats-title {
+    font-size: 32rpx;
+    font-weight: 700;
+    color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+}
+
+.stats-item {
+  text-align: center;
+  padding: 25rpx 15rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16rpx;
+  border: 1rpx solid #303C55;
+
+  .stats-number {
+    font-size: 42rpx;
+    font-weight: 700;
+    color: #64FFDA;
+    margin-bottom: 6rpx;
+    display: block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .stats-label {
+    font-size: 26rpx;
+    color: #B8C5D1;
+    font-weight: 500;
+    display: block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* 第三行：控制按钮 */
+.control-row {
+  width: 100%;
+}
+
+.control-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1rpx solid #303C55;
+  border-radius: 20rpx;
+  padding: 30rpx;
+}
+
+.panel-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 30rpx;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.control-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+.control-btn {
+  height: 100rpx;
+  border: none;
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rpx;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  
+  .btn-icon {
+    font-size: 38rpx;
+    margin-bottom: 0;
+    line-height: 1;
+    margin-top: -6rpx;
+  }
+  
+  .btn-text {
+    font-size: 26rpx;
+    margin-top: -2rpx;
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  
+  &.primary-btn {
+    background: linear-gradient(45deg, #4caf50, #66bb6a);
+    color: white;
+    
+    &:disabled {
+      background: #e0e0e0;
+      color: rgba(0, 0, 0, 0.4);
+      box-shadow: none;
+    }
+  }
+  
+  &.danger-btn {
+    background: linear-gradient(45deg, #f44336, #ef5350);
+    color: white;
+    
+    &:disabled {
+      background: #e0e0e0;
+      color: rgba(0, 0, 0, 0.4);
+      box-shadow: none;
+    }
+  }
+  
+  &.connect-btn {
+    background: linear-gradient(45deg, #007AFF, #5ac8fa);
+    color: white;
+    
+    &:disabled {
+      background: #e0e0e0;
+      color: rgba(0, 0, 0, 0.4);
+      box-shadow: none;
+    }
+  }
+  
+  &.disconnect-btn {
+    background: linear-gradient(45deg, #ff9800, #ffb74d);
+    color: white;
+    
+    &:disabled {
+      background: #e0e0e0;
+      color: rgba(0, 0, 0, 0.4);
+      box-shadow: none;
+    }
+  }
+  
+  &.comm-btn {
+    background: linear-gradient(45deg, #9c27b0, #ba68c8);
+    color: white;
+    grid-column: span 2;
+    
+    &:disabled {
+      background: #e0e0e0;
+      color: rgba(0, 0, 0, 0.4);
+      box-shadow: none;
+    }
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 600rpx) {
+  .top-row {
+    grid-template-columns: 1fr;
+    gap: 20rpx;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16rpx;
+  }
+  
+  .control-buttons {
+    grid-template-columns: 1fr;
+    gap: 16rpx;
+  }
+  
+  .status-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* 舵机控制样式 */
+.servo-control-row {
+  .control-panel {
+    background-color: #ffffff;
+    border-radius: 12rpx;
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+    padding: 20rpx;
+    
+    .panel-title {
+      font-size: 30rpx;
+      font-weight: bold;
+      color: #333333;
+      margin-bottom: 16rpx;
+    }
+    
+    .servo-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16rpx;
+      
+      .servo-group {
+        display: flex;
+        align-items: center;
+        
+        .servo-label {
+          width: 180rpx;
+          font-size: 28rpx;
+          color: #333333;
+          margin-right: 16rpx;
+        }
+        
+        .servo-btn {
+          flex: 1;
+          margin: 0 10rpx;
+          font-size: 28rpx;
+          padding: 10rpx 0;
+          line-height: 1.5;
+          background-color: #f0f0f0;
+          color: #333333;
+          
+          &:first-of-type {
+            background-color: #e1f5fe;
+            color: #0288d1;
+            
+            &:active {
+              background-color: #b3e5fc;
+            }
+          }
+          
+          &:last-of-type {
+            background-color: #fff8e1;
+            color: #ffa000;
+            
+            &:active {
+              background-color: #ffecb3;
+            }
+          }
+          
+          &[disabled] {
+            background-color: #f5f5f5 !important;
+            color: #bdbdbd !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 速度控制样式 */
+.speed-control-row {
+  .control-panel {
+    background-color: #ffffff;
+    border-radius: 12rpx;
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+    padding: 20rpx;
+    
+    .panel-title {
+      font-size: 30rpx;
+      font-weight: bold;
+      color: #333333;
+      margin-bottom: 16rpx;
+    }
+    
+    .speed-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 16rpx;
+      
+      .speed-btn {
+        flex: 1;
+        font-size: 28rpx;
+        padding: 10rpx 0;
+        line-height: 1.5;
+        background-color: #f0f0f0;
+        color: #333333;
+        
+        &:nth-child(1) {
+          background-color: #ffebee;
+          color: #d32f2f;
+          
+          &.active {
+            background-color: #ef5350;
+            color: white;
+          }
+        }
+        
+        &:nth-child(2) {
+          background-color: #e8f5e9;
+          color: #388e3c;
+          
+          &.active {
+            background-color: #66bb6a;
+            color: white;
+          }
+        }
+        
+        &:nth-child(3) {
+          background-color: #e3f2fd;
+          color: #1976d2;
+          
+          &.active {
+            background-color: #42a5f5;
+            color: white;
+          }
+        }
+        
+        &:nth-child(4) {
+          background-color: #ede7f6;
+          color: #512da8;
+          
+          &.active {
+            background-color: #7e57c2;
+            color: white;
+          }
+        }
+        
+        &[disabled] {
+          background-color: #f5f5f5 !important;
+          color: #bdbdbd !important;
+        }
+      }
+    }
+  }
+}
+
+/* 控制按钮样式 */
+.control-row {
+  margin-top: 20rpx;
+  
+  .control-panel {
+    background-color: #ffffff;
+    border-radius: 12rpx;
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+    padding: 20rpx;
+    
+    .panel-title {
+      font-size: 30rpx;
+      font-weight: bold;
+      color: #333333;
+      margin-bottom: 16rpx;
+    }
+    
+    .control-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20rpx;
+      
+      .control-btn {
+        flex: 1;
+        min-width: 45%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20rpx 0;
+        
+        .btn-icon {
+          font-size: 48rpx;
+          margin-bottom: 8rpx;
+        }
+        
+        .btn-text {
+          font-size: 28rpx;
+          font-weight: bold;
+        }
+        
+        &.primary-btn {
+          background-color: #4caf50;
+          color: white;
+          
+          &:active {
+            background-color: #43a047;
+          }
+        }
+        
+        &.danger-btn {
+          background-color: #f44336;
+          color: white;
+          
+          &:active {
+            background-color: #e53935;
+          }
+        }
+        
+        &.connect-btn {
+          background-color: #2196f3;
+          color: white;
+          
+          &:active {
+            background-color: #1e88e5;
+          }
+        }
+        
+        &.disconnect-btn {
+          background-color: #ff9800;
+          color: white;
+          
+          &:active {
+            background-color: #fb8c00;
+          }
+        }
+        
+        &[disabled] {
+          background-color: #f5f5f5 !important;
+          color: #bdbdbd !important;
+        }
+      }
+    }
+  }
+}
+
+/* 流水线编号设置区域样式 */
+.line-id-section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10rpx);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 20rpx;
+  
+  .section-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20rpx;
+  }
+  
+  .line-id-control {
+    display: flex;
+    flex-direction: column;
+    gap: 20rpx;
+    
+    .line-id-info {
+      font-size: 28rpx;
+      color: #333;
+      font-weight: 500;
+    }
+    
+    .line-id-input-area {
+      display: flex;
+      align-items: center;
+      gap: 20rpx;
+      
+      .line-id-input {
+        flex: 1;
+        background-color: #f5f5f5;
+        border: 2rpx solid #e0e0e0;
+        border-radius: 12rpx;
+        padding: 20rpx;
+        font-size: 28rpx;
+        color: #333;
+        
+        &:disabled {
+          background-color: #eaeaea;
+          color: #999;
+        }
+      }
+      
+      .line-id-btn {
+        background: linear-gradient(45deg, #007AFF, #5ac8fa);
+        color: white;
+        border: none;
+        padding: 0 40rpx;
+        height: 80rpx;
+        line-height: 80rpx;
+        border-radius: 12rpx;
+        font-size: 28rpx;
+        font-weight: 500;
+        box-shadow: 0 4rpx 15rpx rgba(0, 122, 255, 0.3);
+        
+        &:disabled {
+          background: #e0e0e0;
+          color: rgba(0, 0, 0, 0.4);
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
+
+/* 调试信息区域样式 */
+.debug-section {
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20rpx;
+    
+    .clear-btn {
+      background-color: #f5f5f5;
+      color: #666;
+      font-size: 24rpx;
+      padding: 0 20rpx;
+      height: 60rpx;
+      line-height: 60rpx;
+      border-radius: 10rpx;
+    }
+  }
+  
+  .debug-content {
+    height: 400rpx;
+    background-color: #f9f9f9;
+    border-radius: 12rpx;
+    padding: 20rpx;
+    
+    .debug-empty {
+      text-align: center;
+      color: #999;
+      font-size: 26rpx;
+      padding: 40rpx 0;
+    }
+    
+    .debug-item {
+      display: flex;
+      margin-bottom: 12rpx;
+      font-size: 24rpx;
+      line-height: 1.5;
+      
+      .debug-time {
+        color: #666;
+        margin-right: 12rpx;
+        flex-shrink: 0;
+      }
+      
+      .debug-message {
+        color: #333;
+        flex: 1;
+        word-break: break-all;
+      }
+    }
+  }
+}

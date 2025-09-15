@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/control/control",
+    "pages/arm/arm",
+    "pages/cloud/cloud"
+  ],
+  "tabBar": {
+    "custom": false,
+    "color": "#95a5a6",
+    "selectedColor": "#007AFF",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/control/control",
+        "text": "设备控制",
+        "iconPath": "images/tab/control.png",
+        "selectedIconPath": "images/tab/control_active.png"
+      },
+      {
+        "pagePath": "pages/arm/arm",
+        "text": "机械臂测试",
+        "iconPath": "images/tab/servo.png",
+        "selectedIconPath": "images/tab/servo_active.png"
+      },
+      {
+        "pagePath": "pages/cloud/cloud",
+        "text": "状态信息",
+        "iconPath": "images/tab/cloud.png",
+        "selectedIconPath": "images/tab/cloud_active.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "智慧物流控制系统",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f8f8f8"
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

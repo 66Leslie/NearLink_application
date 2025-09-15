@@ -1,0 +1,869 @@
+/* pages/cloud/cloud.scss */
+.container {
+  padding: 0;
+  background: linear-gradient(135deg, #0A192F 0%, #1A365D 50%, #0A192F 100%);
+  min-height: 100vh;
+}
+
+/* 页面头部 */
+.page-header {
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1rpx solid #303C55;
+  padding: 40rpx 30rpx 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.connection-status {
+  padding: 12rpx 24rpx;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &.connected {
+    background: rgba(72, 187, 120, 0.2);
+    border: 1rpx solid #48BB78;
+    color: #48BB78;
+  }
+
+  &.disconnected {
+    background: rgba(255, 107, 107, 0.2);
+    border: 1rpx solid #FF6B6B;
+    color: #FF6B6B;
+  }
+}
+
+/* 主要内容区域 */
+.main-content {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+
+/* 通用部分样式 */
+.section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10rpx);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 25rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 2rpx solid rgba(0, 0, 0, 0.05);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 2rpx solid rgba(0, 0, 0, 0.05);
+}
+
+/* 状态部分样式 */
+.status-card {
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.status-label {
+  width: 180rpx;
+  font-size: 28rpx;
+  color: #7f8c8d;
+}
+
+.status-value {
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #2c3e50;
+  
+  &.running {
+    color: #4caf50;
+  }
+
+  &.stopped {
+    color: #f44336;
+  }
+
+  &.transporting {
+    color: #2196f3;
+    font-weight: 600;
+  }
+
+  &.idle {
+    color: #9e9e9e;
+  }
+}
+
+/* 传送带运送状态样式 */
+.conveyor-section {
+  .conveyor-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20rpx;
+    padding: 30rpx;
+    color: white;
+    box-shadow: 0 8rpx 32rpx rgba(102, 126, 234, 0.3);
+  }
+
+  .conveyor-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30rpx;
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 15rpx;
+
+      .indicator-dot {
+        width: 20rpx;
+        height: 20rpx;
+        border-radius: 50%;
+        background: #ff4444;
+        box-shadow: 0 0 20rpx rgba(255, 68, 68, 0.5);
+        animation: pulse 2s infinite;
+      }
+
+      .indicator-text {
+        font-size: 32rpx;
+        font-weight: 600;
+      }
+
+      &.active .indicator-dot {
+        background: #4caf50;
+        box-shadow: 0 0 20rpx rgba(76, 175, 80, 0.5);
+      }
+    }
+
+    .speed-display {
+      text-align: right;
+
+      .speed-label {
+        font-size: 24rpx;
+        opacity: 0.8;
+        margin-bottom: 8rpx;
+      }
+
+      .speed-value {
+        font-size: 28rpx;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .conveyor-details {
+    display: flex;
+    gap: 20rpx;
+
+    .detail-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 15rpx;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16rpx;
+      padding: 20rpx;
+      backdrop-filter: blur(10rpx);
+
+      .detail-icon {
+        font-size: 32rpx;
+      }
+
+      .detail-info {
+        flex: 1;
+
+        .detail-title {
+          font-size: 24rpx;
+          opacity: 0.9;
+          margin-bottom: 6rpx;
+        }
+
+        .detail-desc {
+          font-size: 22rpx;
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+/* 分拣统计部分样式 */
+.sorting-card {
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+
+/* 图表样式 */
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+  height: 300rpx;
+}
+
+.chart-bars {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 250rpx;
+  padding: 0 20rpx;
+}
+
+.chart-bar {
+  width: 80rpx;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  
+  .bar-fill {
+    width: 100%;
+    background: linear-gradient(180deg, #3498db, #2980b9);
+    border-radius: 10rpx 10rpx 0 0;
+    transition: height 0.5s ease;
+  }
+  
+  .bar-value {
+    position: absolute;
+    top: -40rpx;
+    font-size: 24rpx;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  &:nth-child(1) .bar-fill {
+    background: linear-gradient(180deg, #3498db, #2980b9);
+  }
+  
+  &:nth-child(2) .bar-fill {
+    background: linear-gradient(180deg, #2ecc71, #27ae60);
+  }
+  
+  &:nth-child(3) .bar-fill {
+    background: linear-gradient(180deg, #f1c40f, #f39c12);
+  }
+}
+
+.chart-labels {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20rpx;
+}
+
+.chart-label {
+  width: 80rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #7f8c8d;
+}
+
+/* 详细数据样式 */
+.sorting-details {
+  background: white;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.05);
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &.total {
+    font-weight: bold;
+    color: #2c3e50;
+  }
+}
+
+.detail-label {
+  width: 120rpx;
+  font-size: 28rpx;
+  color: #7f8c8d;
+}
+
+.detail-value {
+  flex: 1;
+  font-size: 28rpx;
+  color: #2c3e50;
+}
+
+.detail-percent {
+  width: 80rpx;
+  text-align: right;
+  font-size: 28rpx;
+  color: #3498db;
+}
+
+.detail-divider {
+  height: 2rpx;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 10rpx 0;
+}
+
+/* 操作按钮样式 */
+.button-container {
+  display: flex;
+  gap: 20rpx;
+  justify-content: center;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 15rpx 30rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  border: none;
+
+  &.refresh-btn {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+    box-shadow: 0 4rpx 15rpx rgba(52, 152, 219, 0.3);
+
+    &:disabled {
+      background: #e0e0e0;
+      color: #9e9e9e;
+      box-shadow: none;
+    }
+  }
+
+  &.reset-btn {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    color: white;
+    box-shadow: 0 4rpx 15rpx rgba(231, 76, 60, 0.3);
+  }
+}
+
+/* 连接控制部分样式 */
+.connection-buttons {
+  display: flex;
+  gap: 20rpx;
+}
+
+.connection-btn {
+  flex: 1;
+  height: 80rpx;
+  border: none;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &.connect {
+    background: linear-gradient(45deg, #4caf50, #66bb6a);
+    color: white;
+    box-shadow: 0 4rpx 15rpx rgba(76, 175, 80, 0.3);
+    
+    &:disabled {
+      background: #e0e0e0;
+      color: #9e9e9e;
+      box-shadow: none;
+    }
+  }
+  
+  &.disconnect {
+    background: linear-gradient(45deg, #f44336, #ef5350);
+    color: white;
+    box-shadow: 0 4rpx 15rpx rgba(244, 67, 54, 0.3);
+    
+    &:disabled {
+      background: #e0e0e0;
+      color: #9e9e9e;
+      box-shadow: none;
+    }
+  }
+}
+
+/* 第一行：设备信息和数据同步 */
+.top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+
+/* 卡片头部通用样式 */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 15rpx;
+  margin-bottom: 25rpx;
+  
+  .card-icon {
+    font-size: 32rpx;
+  }
+  
+  .card-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+}
+
+/* 设备信息卡片 */
+.info-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10rpx);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+}
+
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 20rpx;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 12rpx;
+  border: 2rpx solid rgba(240, 147, 251, 0.1);
+  
+  .info-label {
+    font-size: 24rpx;
+    color: #7f8c8d;
+  }
+  
+  .info-value {
+    font-size: 24rpx;
+    color: #2c3e50;
+    font-weight: 500;
+  }
+}
+
+/* 数据同步卡片 */
+.sync-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10rpx);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+}
+
+.sync-status {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+  margin-bottom: 25rpx;
+}
+
+.sync-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  
+  .sync-label {
+    font-size: 24rpx;
+    color: #7f8c8d;
+  }
+}
+
+.sync-indicator {
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32rpx;
+  
+  &.synced {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+  }
+  
+  &.pending {
+    background: rgba(255, 152, 0, 0.1);
+    color: #ff9800;
+  }
+}
+
+.sync-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15rpx;
+}
+
+.sync-btn, .backup-btn {
+  height: 80rpx;
+  border: none;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.1);
+  padding: 0 20rpx;
+  line-height: 1;
+}
+
+.sync-btn {
+  background: linear-gradient(45deg, #2196f3, #42a5f5);
+  color: white;
+  
+  &:disabled {
+    background: #e0e0e0;
+    color: #9e9e9e;
+    box-shadow: none;
+  }
+}
+
+.backup-btn {
+  background: linear-gradient(45deg, #ff9800, #ffb74d);
+  color: white;
+}
+
+/* 第二行：远程控制 */
+.control-row {
+  width: 100%;
+}
+
+.remote-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10rpx);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+}
+
+.remote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15rpx;
+}
+
+.remote-btn {
+  height: 100rpx;
+  border: none;
+  border-radius: 16rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.15);
+  
+  .btn-icon {
+    font-size: 32rpx;
+    margin-bottom: 0;
+  }
+  
+  .btn-text {
+    font-size: 24rpx;
+    margin-top: 0;
+    line-height: 1;
+  }
+  
+  &.query {
+    background: linear-gradient(45deg, #2196f3, #42a5f5);
+    color: white;
+  }
+  
+  &.reset {
+    background: linear-gradient(45deg, #ff9800, #ffb74d);
+    color: white;
+  }
+  
+  &.config {
+    background: linear-gradient(45deg, #9c27b0, #ba68c8);
+    color: white;
+  }
+  
+  &.restart {
+    background: linear-gradient(45deg, #f44336, #ef5350);
+    color: white;
+  }
+  
+  &:disabled {
+    background: #e0e0e0;
+    color: #9e9e9e;
+    box-shadow: none;
+  }
+}
+
+/* 第三行：操作历史 */
+.history-row {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.history-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10rpx);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+}
+
+.history-list {
+  height: 400rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  margin-bottom: 15rpx;
+  background: white;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.history-content {
+  flex: 1;
+  
+  .history-time {
+    font-size: 20rpx;
+    color: #7f8c8d;
+    margin-bottom: 8rpx;
+  }
+  
+  .history-action {
+    font-size: 24rpx;
+    color: #2c3e50;
+    line-height: 1.4;
+  }
+}
+
+.history-status {
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+  
+  &.success {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+  }
+  
+  &.failed {
+    background: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+  }
+}
+
+.history-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300rpx;
+  
+  .empty-icon {
+    font-size: 48rpx;
+    margin-bottom: 15rpx;
+    opacity: 0.6;
+  }
+  
+  .empty-text {
+    font-size: 24rpx;
+    color: #7f8c8d;
+  }
+}
+
+/* 新添加：历史操作按钮区域 */
+.history-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15rpx;
+}
+
+.clear-btn, .export-btn {
+  height: 80rpx;
+  border: none;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.1);
+}
+
+.clear-btn {
+  background: linear-gradient(45deg, #f44336, #ef5350);
+  color: white;
+}
+
+.export-btn {
+  background: linear-gradient(45deg, #2196f3, #42a5f5);
+  color: white;
+}
+
+/* 网络诊断卡片 */
+.diagnostic-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10rpx);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 使用card-header内的card-title样式 */
+
+.diagnostic-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+  margin-bottom: 25rpx;
+}
+
+.diagnostic-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+}
+
+.diagnostic-label {
+  font-size: 24rpx;
+  color: #7f8c8d;
+}
+
+.diagnostic-value {
+  font-size: 24rpx;
+  font-weight: 500;
+  
+  &.good {
+    color: #4caf50;
+  }
+  
+  &.average {
+    color: #ff9800;
+  }
+  
+  &.poor {
+    color: #f44336;
+  }
+}
+
+.diagnostic-btn {
+  width: 100%;
+  height: 80rpx;
+  border: none;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  background: linear-gradient(45deg, #2196f3, #42a5f5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.1);
+  
+  &:disabled {
+    background: #e0e0e0;
+    color: #9e9e9e;
+    box-shadow: none;
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 600rpx) {
+  .top-row {
+    grid-template-columns: 1fr;
+    gap: 20rpx;
+  }
+  
+  .remote-grid {
+    grid-template-columns: 1fr;
+    gap: 12rpx;
+  }
+  
+  .sync-actions {
+    grid-template-columns: 1fr;
+    gap: 12rpx;
+  }
+  
+  .info-grid {
+    gap: 15rpx;
+  }
+  
+  .history-actions {
+    grid-template-columns: 1fr;
+    gap: 12rpx;
+  }
+}

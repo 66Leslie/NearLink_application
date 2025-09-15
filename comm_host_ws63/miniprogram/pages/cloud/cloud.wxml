@@ -1,0 +1,126 @@
+<!--状态信息页面-->
+<view class="container">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <view class="header-title">状态信息中心</view>
+    <view class="connection-status {{udpConnected ? 'connected' : 'disconnected'}}">
+      {{udpConnected ? '设备已连接' : '设备未连接'}}
+    </view>
+  </view>
+
+  <!-- 主要内容区域 -->
+  <view class="main-content">
+    <!-- 第一行：运行状态 -->
+    <view class="section status-section">
+      <view class="section-title">运行状态</view>
+      <view class="status-card">
+        <view class="status-item">
+          <view class="status-label">当前状态：</view>
+          <view class="status-value {{isRunning ? 'running' : 'stopped'}}">
+            {{isRunning ? '运行中' : '已停止'}}
+          </view>
+        </view>
+        <view class="status-item">
+          <view class="status-label">传送带速度：</view>
+          <view class="status-value">{{speedText}}</view>
+        </view>
+        <view class="status-item">
+          <view class="status-label">运送状态：</view>
+          <view class="status-value {{isRunning ? 'transporting' : 'idle'}}">
+            {{isRunning ? '正在运送' : '空闲待机'}}
+          </view>
+        </view>
+        <view class="status-item">
+          <view class="status-label">连接地址：</view>
+          <view class="status-value">{{deviceIP}}:{{devicePort}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 第二行：传送带运送状态 -->
+    <view class="section conveyor-section">
+      <view class="section-title">传送带运送状态</view>
+      <view class="conveyor-card">
+        <view class="conveyor-status">
+          <view class="status-indicator {{isRunning ? 'active' : 'inactive'}}">
+            <view class="indicator-dot"></view>
+            <view class="indicator-text">{{isRunning ? '运送中' : '已停止'}}</view>
+          </view>
+          <view class="speed-display">
+            <view class="speed-label">当前速度</view>
+            <view class="speed-value">{{speedText}}</view>
+          </view>
+        </view>
+
+        <view class="conveyor-details">
+          <view class="detail-item">
+            <view class="detail-icon">🚚</view>
+            <view class="detail-info">
+              <view class="detail-title">运送模式</view>
+              <view class="detail-desc">{{isRunning ? '自动运送模式' : '手动控制模式'}}</view>
+            </view>
+          </view>
+          <view class="detail-item">
+            <view class="detail-icon">⚡</view>
+            <view class="detail-info">
+              <view class="detail-title">运行时长</view>
+              <view class="detail-desc">{{isRunning ? '运行中...' : '已停止'}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 第三行：分拣统计 -->
+    <view class="section sorting-section">
+      <view class="section-title">分拣统计</view>
+      
+      <!-- 分拣数据卡片 -->
+      <view class="sorting-card">
+        <!-- 分拣数据详情 -->
+        <view class="sorting-details">
+          <view class="detail-row">
+            <view class="detail-label">物品0：</view>
+            <view class="detail-value">{{sortingCounts.position0}} 件</view>
+          </view>
+          <view class="detail-row">
+            <view class="detail-label">物品1：</view>
+            <view class="detail-value">{{sortingCounts.position1}} 件</view>
+          </view>
+          <view class="detail-row">
+            <view class="detail-label">物品2：</view>
+            <view class="detail-value">{{sortingCounts.position2}} 件</view>
+          </view>
+          <view class="detail-divider"></view>
+          <view class="detail-row total">
+            <view class="detail-label">总计：</view>
+            <view class="detail-value">{{sortingCounts.position0 + sortingCounts.position1 + sortingCounts.position2}} 件</view>
+          </view>
+        </view>
+        
+        <!-- 操作按钮 -->
+        <view class="button-container">
+          <button class="action-btn refresh-btn" catchtap="onRefreshCounts" disabled="{{!udpConnected}}">
+            刷新统计数据
+          </button>
+          <button class="action-btn reset-btn" catchtap="onResetCounts">
+            重置计数
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 第四行：连接控制 -->
+    <view class="section connection-section">
+      <view class="section-title">连接控制</view>
+      <view class="connection-buttons">
+        <button class="connection-btn connect" catchtap="onConnectDevice" disabled="{{udpConnected}}">
+          连接通信机
+        </button>
+        <button class="connection-btn disconnect" catchtap="onDisconnectDevice" disabled="{{!udpConnected}}">
+          断开连接
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

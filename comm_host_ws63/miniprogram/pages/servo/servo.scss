@@ -1,0 +1,213 @@
+.container {
+  padding: 20rpx;
+  background: #f5f6fa;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  
+  .title {
+    font-size: 44rpx;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .connection-status {
+    padding: 12rpx 24rpx;
+    border-radius: 20rpx;
+    font-size: 24rpx;
+    
+    &.connected {
+      background: #e8f5e8;
+      color: #4caf50;
+    }
+    
+    &.disconnected {
+      background: #ffeaea;
+      color: #f44336;
+    }
+  }
+}
+
+.servo-card, .preset-card, .debug-card {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+  
+  .card-title {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 30rpx;
+    display: block;
+  }
+}
+
+.servo-card {
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30rpx;
+    
+    .stop-all-btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 12rpx;
+      padding: 16rpx 32rpx;
+      font-size: 28rpx;
+      
+      &:disabled {
+        background: #ddd;
+        color: #999;
+      }
+    }
+  }
+  
+  .servo-list {
+    .servo-item {
+      margin-bottom: 40rpx;
+      padding: 30rpx;
+      background: #f8f9fa;
+      border-radius: 12rpx;
+      border-left: 6rpx solid #007AFF;
+      
+      .servo-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20rpx;
+        
+        .servo-name {
+          font-size: 28rpx;
+          font-weight: 500;
+          color: #2c3e50;
+        }
+        
+        .servo-value {
+          font-size: 24rpx;
+          color: #7f8c8d;
+          font-family: monospace;
+        }
+      }
+      
+      .servo-control {
+        .servo-slider {
+          width: 100%;
+          margin-bottom: 20rpx;
+        }
+        
+        .preset-buttons {
+          display: flex;
+          gap: 20rpx;
+          
+          .preset-btn {
+            flex: 1;
+            height: 60rpx;
+            background: #ecf0f1;
+            border: none;
+            border-radius: 8rpx;
+            font-size: 24rpx;
+            color: #2c3e50;
+            
+            &:disabled {
+              background: #bdc3c7;
+              color: #95a5a6;
+            }
+            
+            &:not(:disabled):active {
+              background: #d5dbdb;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.preset-card {
+  .preset-actions {
+    display: flex;
+    gap: 20rpx;
+    margin-bottom: 30rpx;
+    
+    .preset-action-btn {
+      flex: 1;
+      height: 80rpx;
+      border: none;
+      border-radius: 12rpx;
+      font-size: 28rpx;
+      
+      &.save {
+        background: #3498db;
+        color: white;
+      }
+      
+      &.load {
+        background: #2ecc71;
+        color: white;
+      }
+      
+      &:disabled {
+        background: #ddd;
+        color: #999;
+      }
+    }
+  }
+  
+  .preset-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12rpx;
+    
+    .preset-label {
+      font-size: 26rpx;
+      color: #7f8c8d;
+    }
+    
+    .preset-values {
+      font-size: 24rpx;
+      color: #2c3e50;
+      font-family: monospace;
+      background: #f8f9fa;
+      padding: 12rpx 16rpx;
+      border-radius: 8rpx;
+    }
+  }
+}
+
+.debug-card {
+  .debug-content {
+    height: 300rpx;
+    
+    .debug-item {
+      margin-bottom: 12rpx;
+      
+      .debug-text {
+        font-size: 22rpx;
+        color: #7f8c8d;
+        line-height: 1.4;
+        font-family: monospace;
+      }
+    }
+    
+    .debug-empty {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      text {
+        color: #bdc3c7;
+        font-size: 26rpx;
+      }
+    }
+  }
+}

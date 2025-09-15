@@ -1,0 +1,301 @@
+/* pages/test/test.scss */
+.container {
+  padding: 16rpx;
+  background: linear-gradient(135deg, #0A192F 0%, #1A365D 50%, #0A192F 100%);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 页面头部 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 16rpx;
+  margin-bottom: 24rpx;
+
+  .title {
+    font-size: 40rpx;
+    font-weight: 700;
+    color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .connection-status {
+    padding: 8rpx 20rpx;
+    border-radius: 999px;
+    font-size: 24rpx;
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &.connected {
+      background: rgba(72, 187, 120, 0.2);
+      border: 1rpx solid #48BB78;
+      color: #48BB78;
+    }
+
+    &.disconnected {
+      background: rgba(255, 107, 107, 0.2);
+      border: 1rpx solid #FF6B6B;
+      color: #FF6B6B;
+    }
+  }
+}
+
+/* 快速操作按钮 */
+.quick-actions {
+  display: grid; /* 改为grid布局 */
+  grid-template-columns: 1fr 1fr;
+  gap: 24rpx;
+  margin: 0 16rpx 24rpx;
+
+  .action-btn {
+    padding: 24rpx 0;
+    border-radius: 20rpx; /* 增大圆角 */
+    font-size: 28rpx;
+    font-weight: 500;
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &.stop-btn {
+      background-color: #ff4d4f;
+      color: white;
+
+      &[disabled] {
+        background-color: #e0e0e0;
+        color: #a8a8a8;
+        opacity: 1;
+      }
+    }
+
+    &.save-btn {
+      background-color: #007aff;
+      color: white;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+/* 舵机控制区域 */
+.servo-controls {
+  margin: 0 16rpx 24rpx;
+}
+
+.servo-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24rpx;
+  margin-bottom: 24rpx;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.servo-item {
+  background-color: white;
+  border-radius: 24rpx; /* 增大圆角 */
+  padding: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06); /* 更柔和的阴影 */
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx; /* 增加内部间距 */
+}
+
+.servo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.servo-info {
+  min-width: 0;
+
+  .servo-name {
+    font-size: 30rpx;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8rpx;
+    white-space: normal;
+    word-break: break-all;
+  }
+
+  .servo-desc {
+    font-size: 24rpx;
+    color: #888;
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
+.servo-values {
+  text-align: right;
+  flex-shrink: 0; /* 防止数值被压缩 */
+  padding-left: 16rpx;
+
+  .slider-value {
+    font-size: 34rpx;
+    font-weight: 600;
+    color: #007aff;
+    margin-bottom: 4rpx;
+  }
+
+  .pwm-value {
+    font-size: 22rpx;
+    color: #aaa;
+  }
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+
+  .slider-label {
+    font-size: 22rpx;
+    color: #999;
+    width: 60rpx; /* 固定标签宽度以对齐 */
+    text-align: center;
+  }
+
+  .servo-slider {
+    flex: 1;
+    margin: 0;
+  }
+}
+
+/* 增加滑块的触摸反馈样式 */
+.servo-slider {
+  transition: opacity 0.2s;
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+/* 自定义滑块样式增强 */
+.servo-values .slider-value {
+  transition: color 0.3s;
+  font-size: 38rpx;
+  font-weight: bold;
+}
+
+/* 给不同的滑块添加不同的颜色样式 */
+.servo-item:nth-child(1) .slider-value {
+  color: #007AFF;
+}
+
+.servo-item:nth-child(2) .slider-value {
+  color: #FF6B6B;
+}
+
+.servo-controls .servo-row:nth-child(2) .servo-item:nth-child(1) .slider-value {
+  color: #4CAF50;
+}
+
+.servo-controls .servo-row:nth-child(2) .servo-item:nth-child(2) .slider-value {
+  color: #FF9800;
+}
+
+/* 预设位置区域 */
+.preset-section,
+.debug-section {
+  margin: 0 16rpx 24rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 20rpx;
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 固定为2x2网格 */
+  gap: 20rpx;
+}
+
+.preset-item {
+  background-color: white;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  box-shadow: 0 6rpx 18rpx rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:active {
+    transform: translateY(2rpx) scale(0.99);
+    box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.07);
+  }
+
+  .preset-name {
+    font-size: 28rpx;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 16rpx;
+  }
+
+  .preset-values {
+    display: flex;
+    gap: 12rpx;
+    flex-wrap: wrap;
+  }
+
+  .preset-value {
+    font-size: 22rpx;
+    color: #555;
+    background-color: #f0f2f5;
+    padding: 6rpx 12rpx;
+    border-radius: 10rpx;
+  }
+}
+
+/* 调试信息区域 */
+
+
+.debug-grid {
+  background-color: white;
+  border-radius: 24rpx;
+  padding: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.06);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24rpx;
+}
+
+.debug-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+
+  .debug-label {
+    font-size: 24rpx;
+    color: #888;
+  }
+
+  .debug-value {
+    font-size: 28rpx;
+    font-weight: 500;
+    color: #333;
+
+    &.online {
+      color: #00bc87;
+    }
+
+    &.offline {
+      color: #ff4d4f;
+    }
+  }
+}
+
+/* 响应式处理 - 针对小屏幕 */
+@media (max-width: 400px) {
+  .servo-row,
+  .preset-grid {
+    grid-template-columns: 1fr; /* 在非常窄的屏幕上堆叠 */
+  }
+}

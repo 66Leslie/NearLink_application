@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 简洁的物流箱体 -->
+  <rect x="30" y="40" width="60" height="40" rx="3" fill="none" stroke="#CCD6F6" stroke-width="2"/>
+
+  <!-- 箱体内部分隔线，表示智能分拣 -->
+  <line x1="50" y1="40" x2="50" y2="80" stroke="#CCD6F6" stroke-width="1" opacity="0.6"/>
+  <line x1="70" y1="40" x2="70" y2="80" stroke="#CCD6F6" stroke-width="1" opacity="0.6"/>
+
+  <!-- 数据流动线条 - 左侧输入 -->
+  <path d="M10 60 L30 60" stroke="#64FFDA" stroke-width="2"/>
+  <path d="M15 55 L10 60 L15 65" stroke="#64FFDA" stroke-width="2" fill="none"/>
+
+  <!-- 数据流动线条 - 右侧输出 -->
+  <path d="M90 60 L110 60" stroke="#64FFDA" stroke-width="2"/>
+  <path d="M105 55 L110 60 L105 65" stroke="#64FFDA" stroke-width="2" fill="none"/>
+
+  <!-- 智能控制节点 -->
+  <circle cx="60" cy="25" r="4" fill="#64FFDA"/>
+  <line x1="60" y1="29" x2="60" y2="40" stroke="#64FFDA" stroke-width="1.5"/>
+
+  <!-- 分拣输出路径 -->
+  <path d="M40 80 L35 95" stroke="#CCD6F6" stroke-width="1.5" opacity="0.8"/>
+  <path d="M60 80 L60 95" stroke="#CCD6F6" stroke-width="1.5" opacity="0.8"/>
+  <path d="M80 80 L85 95" stroke="#CCD6F6" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- 输出端点 -->
+  <circle cx="35" cy="95" r="2" fill="#CCD6F6" opacity="0.8"/>
+  <circle cx="60" cy="95" r="2" fill="#CCD6F6" opacity="0.8"/>
+  <circle cx="85" cy="95" r="2" fill="#CCD6F6" opacity="0.8"/>
+</svg>

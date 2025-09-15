@@ -1,0 +1,118 @@
+<!--设备控制页面-->
+<view class="container">
+  <!-- 体验模式提示条 -->
+  <view class="demo-mode-banner" wx:if="{{demoMode}}">
+    <view class="demo-icon">🎯</view>
+    <view class="demo-text">体验模式 - 部分功能为演示效果</view>
+    <view class="demo-action" bindtap="exitDemoMode">退出</view>
+  </view>
+
+  <!-- 操作成功弹窗 -->
+  <view class="success-popup" wx:if="{{showSuccessPopup}}">
+    <view class="success-popup-content">
+      <view class="success-icon">
+        <icon type="success" size="40" color="#fff" />
+      </view>
+      <view class="success-text">{{successMessage}}</view>
+    </view>
+  </view>
+
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <view class="header-title">设备控制中心</view>
+    <view class="status-indicator {{udpConnected ? 'connected' : 'disconnected'}}">
+      {{udpConnected ? '通信机已连接' : '通信机未连接'}}
+    </view>
+  </view>
+
+  <!-- 主要内容区域 -->
+  <view class="main-content">
+    <!-- 第一行：设备控制 -->
+    <view class="section servo-control-section">
+      <view class="section-title">设备控制</view>
+      <view class="servo-controls">
+        <view class="servo-row" wx:for="{{servoList}}" wx:key="id">
+          <view class="servo-label">{{item.name}}：</view>
+          <view class="servo-buttons">
+            <button class="servo-btn" data-servo-id="{{item.id}}" data-action="on" catchtap="controlServo" disabled="{{!udpConnected || buttonLocked}}">{{item.id === 0 ? '阻拦' : '弹出'}}</button>
+            <button class="servo-btn" data-servo-id="{{item.id}}" data-action="off" catchtap="controlServo" disabled="{{!udpConnected || buttonLocked}}">{{item.id === 0 ? '放行' : '收回'}}</button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 第二行：传送带速度控制 -->
+    <view class="section speed-section">
+      <view class="section-title">传送带速度</view>
+      <view class="speed-buttons">
+        <button class="speed-btn {{currentSpeed === 0 ? 'active' : ''}}" data-speed="0" catchtap="setSpeed" disabled="{{!udpConnected || buttonLocked}}">
+          停止
+        </button>
+        <button class="speed-btn {{currentSpeed === 1 ? 'active' : ''}}" data-speed="1" catchtap="setSpeed" disabled="{{!udpConnected || buttonLocked}}">
+          慢速
+        </button>
+        <button class="speed-btn {{currentSpeed === 2 ? 'active' : ''}}" data-speed="2" catchtap="setSpeed" disabled="{{!udpConnected || buttonLocked}}">
+          中速
+        </button>
+        <button class="speed-btn {{currentSpeed === 3 ? 'active' : ''}}" data-speed="3" catchtap="setSpeed" disabled="{{!udpConnected || buttonLocked}}">
+          高速
+        </button>
+      </view>
+    </view>
+
+    <!-- 第三行：流水线编号设置 -->
+    <view class="section line-id-section">
+      <view class="section-title">流水线编号设置</view>
+      <view class="line-id-control">
+        <view class="line-id-info">当前流水线：{{currentLineId}}</view>
+        <view class="line-id-input-area">
+          <input
+            class="line-id-input"
+            type="number"
+            value="{{lineIdInput}}"
+            bindinput="onLineIdInput"
+            disabled="{{!udpConnected || buttonLocked}}"
+            placeholder="输入编号(0-9)"
+          />
+          <button 
+            class="line-id-btn" 
+            catchtap="setLineId" 
+            disabled="{{!udpConnected || buttonLocked}}"
+          >
+            设置编号
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 第五行：连接控制 -->
+    <view class="section connection-section">
+      <view class="section-title">连接控制</view>
+      <view class="connection-buttons">
+        <button class="connection-btn connect" catchtap="onConnectComm" disabled="{{udpConnected || buttonLocked}}">
+          连接通信机
+        </button>
+        <button class="connection-btn disconnect" catchtap="onDisconnect" disabled="{{!udpConnected || buttonLocked}}">
+          断开连接
+        </button>
+      </view>
+    </view>
+    
+    <!-- 第六行：调试信息 -->
+    <view class="section debug-section">
+      <view class="section-header">
+        <view class="section-title">调试信息</view>
+        <button class="clear-btn" catchtap="clearDebugInfo">清空</button>
+      </view>
+      <scroll-view class="debug-content" scroll-y="true" scroll-top="{{debugScrollTop}}">
+        <view class="debug-empty" wx:if="{{debugMessages.length === 0}}">
+          暂无调试信息
+        </view>
+        <view class="debug-item" wx:for="{{debugMessages}}" wx:key="id">
+          <text class="debug-time">{{item.time}}</text>
+          <text class="debug-message">{{item.message}}</text>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

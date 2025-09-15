@@ -1,0 +1,59 @@
+/**app.wxss**/
+/* 全局样式 */
+page {
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+  width: 100%;
+} 
+
+/* 统一按钮样式 */
+button {
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2rpx);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* 统一滑块样式 */
+.wx-slider-track {
+  background: #e9ecef;
+  height: 6rpx;
+  border-radius: 3rpx;
+}
+
+.wx-slider-handle {
+  width: 28rpx;
+  height: 28rpx;
+  background: linear-gradient(45deg, #007AFF, #5ac8fa);
+  border: 3rpx solid white;
+  box-shadow: 0 2rpx 8rpx rgba(0, 122, 255, 0.3);
+}
+
+.wx-slider-thumb {
+  background: linear-gradient(45deg, #007AFF, #5ac8fa);
+  border-radius: 50%;
+}
+
+/* 通用宽度控制 */
+.section, .page-header, .main-content {
+  width: 100%;
+  box-sizing: border-box;
+}

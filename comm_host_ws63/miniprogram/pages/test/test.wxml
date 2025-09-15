@@ -1,0 +1,187 @@
+<!--pages/test/test.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="header">
+    <text class="title">舵机调试控制</text>
+    <view class="connection-status {{socketConnected ? 'connected' : 'disconnected'}}">
+      <text>{{socketConnected ? '已连接' : '连接断开'}}</text>
+    </view>
+  </view>
+
+  <!-- 快速操作按钮 -->
+  <view class="quick-actions">
+    <button class="action-btn stop-btn" bindtap="onStopAll" disabled="{{!socketConnected}}">
+      停止所有舵机
+    </button>
+    <button class="action-btn save-btn" bindtap="onSaveAsPreset">
+      保存当前位置
+    </button>
+  </view>
+
+  <!-- 调试信息 -->
+  <view class="debug-section">
+    <text class="section-title">实时状态</text>
+    <view class="debug-grid">
+      <view class="debug-item">
+        <text class="debug-label">连接状态</text>
+        <text class="debug-value {{socketConnected ? 'online' : 'offline'}}">
+          {{socketConnected ? '在线' : '离线'}}
+        </text>
+      </view>
+      <view class="debug-item">
+        <text class="debug-label">平均位置</text>
+        <text class="debug-value">
+          {{Math.round((servo1Value + servo2Value + servo3Value + servo4Value) / 4)}}%
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 舵机控制区域 -->
+  <view class="servo-controls">
+    <!-- 第一行：舵机1和舵机2 -->
+    <view class="servo-row">
+      <!-- 舵机1 -->
+      <view class="servo-item">
+        <view class="servo-header">
+          <view class="servo-info">
+            <text class="servo-name">{{servoInfo[0].name}}</text>
+            <text class="servo-desc">{{servoInfo[0].description}}</text>
+          </view>
+          <view class="servo-values">
+            <text class="slider-value">{{servo1Value}}%</text>
+            <text class="pwm-value">PWM: {{pwmValues[0]}}</text>
+          </view>
+        </view>
+        <view class="slider-container">
+          <text class="slider-label">0%</text>
+          <slider class="servo-slider" 
+                  value="{{servo1Value}}" 
+                  min="0" 
+                  max="100" 
+                  step="1" 
+                  show-value="{{false}}"
+                  activeColor="#007AFF"
+                  backgroundColor="#E0E0E0"
+                  block-size="24"
+                  block-color="#007AFF"
+                  bind:change="onServo1Change"
+                  bind:changing="onServo1Changing" />
+          <text class="slider-label">100%</text>
+        </view>
+      </view>
+
+      <!-- 舵机2 -->
+      <view class="servo-item">
+        <view class="servo-header">
+          <view class="servo-info">
+            <text class="servo-name">{{servoInfo[1].name}}</text>
+            <text class="servo-desc">{{servoInfo[1].description}}</text>
+          </view>
+          <view class="servo-values">
+            <text class="slider-value">{{servo2Value}}%</text>
+            <text class="pwm-value">PWM: {{pwmValues[1]}}</text>
+          </view>
+        </view>
+        <view class="slider-container">
+          <text class="slider-label">0%</text>
+          <slider class="servo-slider" 
+                  value="{{servo2Value}}" 
+                  min="0" 
+                  max="100" 
+                  step="1" 
+                  show-value="{{false}}"
+                  activeColor="#FF6B6B"
+                  backgroundColor="#E0E0E0"
+                  block-size="24"
+                  block-color="#FF6B6B"
+                  bind:change="onServo2Change"
+                  bind:changing="onServo2Changing" />
+          <text class="slider-label">100%</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 第二行：舵机3和舵机4 -->
+    <view class="servo-row">
+      <!-- 舵机3 -->
+      <view class="servo-item">
+        <view class="servo-header">
+          <view class="servo-info">
+            <text class="servo-name">{{servoInfo[2].name}}</text>
+            <text class="servo-desc">{{servoInfo[2].description}}</text>
+          </view>
+          <view class="servo-values">
+            <text class="slider-value">{{servo3Value}}%</text>
+            <text class="pwm-value">PWM: {{pwmValues[2]}}</text>
+          </view>
+        </view>
+        <view class="slider-container">
+          <text class="slider-label">0%</text>
+          <slider class="servo-slider" 
+                  value="{{servo3Value}}" 
+                  min="0" 
+                  max="100" 
+                  step="1" 
+                  show-value="{{false}}"
+                  activeColor="#4CAF50"
+                  backgroundColor="#E0E0E0"
+                  block-size="24"
+                  block-color="#4CAF50"
+                  bind:change="onServo3Change"
+                  bind:changing="onServo3Changing" />
+          <text class="slider-label">100%</text>
+        </view>
+      </view>
+
+      <!-- 舵机4 -->
+      <view class="servo-item">
+        <view class="servo-header">
+          <view class="servo-info">
+            <text class="servo-name">{{servoInfo[3].name}}</text>
+            <text class="servo-desc">{{servoInfo[3].description}}</text>
+          </view>
+          <view class="servo-values">
+            <text class="slider-value">{{servo4Value}}%</text>
+            <text class="pwm-value">PWM: {{pwmValues[3]}}</text>
+          </view>
+        </view>
+        <view class="slider-container">
+          <text class="slider-label">0%</text>
+          <slider class="servo-slider" 
+                  value="{{servo4Value}}" 
+                  min="0" 
+                  max="100" 
+                  step="1" 
+                  show-value="{{false}}"
+                  activeColor="#FF9800"
+                  backgroundColor="#E0E0E0"
+                  block-size="24"
+                  block-color="#FF9800"
+                  bind:change="onServo4Change"
+                  bind:changing="onServo4Changing" />
+          <text class="slider-label">100%</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 预设位置 -->
+  <view class="preset-section">
+    <text class="section-title">预设位置</text>
+    <view class="preset-grid">
+      <view class="preset-item" 
+            wx:for="{{presetPositions}}" 
+            wx:key="index"
+            data-index="{{index}}"
+            bindtap="onApplyPreset">
+        <text class="preset-name">{{item.name}}</text>
+        <view class="preset-values">
+          <text class="preset-value" wx:for="{{item.values}}" wx:key="index" wx:for-item="value">
+            {{value}}%
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

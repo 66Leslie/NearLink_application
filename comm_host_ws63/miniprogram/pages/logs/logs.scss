@@ -1,0 +1,26 @@
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0A192F 0%, #1A365D 50%, #0A192F 100%);
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: hidden;
+  padding: 20rpx;
+}
+
+.log-item {
+  margin-top: 20rpx;
+  text-align: center;
+  color: #B8C5D1;
+  font-size: 28rpx;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.log-item:last-child {
+  padding-bottom: env(safe-area-inset-bottom);
+}

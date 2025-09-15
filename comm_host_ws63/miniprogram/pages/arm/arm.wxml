@@ -1,0 +1,57 @@
+<!--机械臂测试页面-->
+<view class="container">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <view class="header-title">机械臂测试中心</view>
+    <view class="connection-status {{udpConnected ? 'connected' : 'disconnected'}}">
+      {{udpConnected ? '设备已连接' : '设备未连接'}}
+    </view>
+  </view>
+
+  <!-- 主要内容区域 -->
+  <view class="main-content">
+    <!-- 舵机控制区域 -->
+    <view class="section servo-section">
+      <view class="section-header">
+        <view class="section-title">机械臂舵机控制</view>
+      </view>
+
+      <view class="servo-grid">
+        <view class="servo-item" wx:for="{{servoList}}" wx:key="id">
+          <view class="servo-header">
+            <view class="servo-name">{{item.name}}</view>
+            <view class="servo-value">{{item.pwm}}μs ({{item.value}}%)</view>
+          </view>
+          
+          <view class="slider-container">
+            <text class="slider-min">0</text>
+            <slider 
+              class="servo-slider" 
+              value="{{item.value}}"
+              min="0"
+              max="100"
+              bindchange="onServoChange"
+              data-servo-id="{{item.id}}"
+              disabled="{{!udpConnected}}"
+              show-value="{{false}}"
+            />
+            <text class="slider-max">100</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 连接控制 -->
+    <view class="section connection-section">
+      <view class="section-title">连接控制</view>
+      <view class="connection-buttons">
+        <button class="connection-btn connect" catchtap="onConnectDevice" disabled="{{udpConnected}}">
+          连接通信机
+        </button>
+        <button class="connection-btn disconnect" catchtap="onDisconnectDevice" disabled="{{!udpConnected}}">
+          断开连接
+        </button>
+      </view>
+    </view>
+  </view>
+</view>
