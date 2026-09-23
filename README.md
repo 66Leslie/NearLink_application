@@ -8,8 +8,8 @@
 
 ## 仓库结构
 
-- `comm_host_63B/`：以目录名“63B”指代的 WS63(B) 板侧示例，运行星闪服务器，从另一块 WS63 板（A 侧）获取货物分拣信息并在 SSD1306 OLED 上循环显示江苏/浙江/上海的分拣计数。【F:comm_host_63B/comm_host_63B.c†L28-L100】【F:comm_host_63B/sle_server_63B.h†L26-L57】
-- `comm_host_ws63/`：WS63(A) 板侧示例，包含 WiFi STA 连接、UDP 服务器、小程序通信、UART 解析与转发、分拣统计和 OLED 显示，并附带详细的硬件接线与构建说明（见子目录 `README.md`）。【F:comm_host_ws63/README.md†L4-L80】【F:comm_host_ws63/comm_host_ws63.c†L22-L136】
+- `comm_host_63B/`：以目录名“63B”指代的 WS63(B) 板侧示例，运行星闪服务器，从另一块 WS63 板（A 侧）获取货物分拣信息并在 SSD1306 OLED 上循环显示江苏/浙江/上海的分拣计数。
+- `comm_host_ws63/`：WS63(A) 板侧示例，包含 WiFi STA 连接、UDP 服务器、小程序通信、UART 解析与转发、分拣统计和 OLED 显示，并附带详细的硬件接线与构建说明（见子目录 `README.md`）。
 
 ## 快速开始
 
@@ -29,13 +29,13 @@
 
 #### WS63(A) 板示例
 
-1. 参照 `comm_host_ws63/README.md` 调整 `wifi_config_ws63.h` 中的 AP 名称与密码，并按需修改 UDP 端口配置。【F:comm_host_ws63/README.md†L49-L78】
-2. 在 HiSpark Studio 中开启 `Support COMM_HOST_WS63 Sample` 选项后，执行 `python build.py ws63-liteos-app` 进行编译。【F:comm_host_ws63/README.md†L83-L93】
+1. 参照 `comm_host_ws63/README.md` 调整 `wifi_config_ws63.h` 中的 AP 名称与密码，并按需修改 UDP 端口配置。
+2. 在 HiSpark Studio 中开启 `Support COMM_HOST_WS63 Sample` 选项后，执行 `python build.py ws63-liteos-app` 进行编译。
 3. 烧录生成的固件，上电后设备会自动连网、启动 UDP 服务、监听 UART，并在 OLED 上显示 IP 与分拣状态。
 
 ## 功能亮点
 
-- **星闪数据展示（WS63-B）**：通过星闪服务器收集货物信息，周期性刷新 OLED，直观显示各地区分拣数量及连接状态。【F:comm_host_63B/comm_host_63B.c†L28-L100】
-- **多通路数据交换（WS63-A）**：UART 接收的分拣指令会被解析并同步到 UDP 小程序，同时统计结果在 OLED 上更新，形成“串口 ↔ WiFi ↔ 星闪”三向协同链路。【F:comm_host_ws63/comm_host_ws63.c†L36-L136】【F:comm_host_ws63/README.md†L13-L44】
+- **星闪数据展示（WS63-B）**：通过星闪服务器收集货物信息，周期性刷新 OLED，直观显示各地区分拣数量及连接状态。
+- **多通路数据交换（WS63-A）**：UART 接收的分拣指令会被解析并同步到 UDP 小程序，同时统计结果在 OLED 上更新，形成“串口 ↔ WiFi ↔ 星闪”三向协同链路。
 
 如需了解具体 GPIO 分配、网络调试或小程序通信格式，请查阅对应子目录下的源代码与文档。
